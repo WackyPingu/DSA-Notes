@@ -73,11 +73,11 @@ gcc bubble-sort.c -o bubble-sort
 > 💡 Beberapa berkas memakai fitur C99 (mis. VLA pada Merge Sort). Tambahkan
 > `-std=c11` bila perlu: `gcc -std=c11 merge-sort.c -o merge-sort`.
 
-Di **Windows (PowerShell)** hasilnya `.exe`:
+Di **Windows (Command Prompt)** hasilnya `.exe`:
 
 ```powershell
 gcc bubble-sort.c -o bubble-sort.exe
-./bubble-sort.exe
+bubble-sort.exe
 ```
 
 ---
