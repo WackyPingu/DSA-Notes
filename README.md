@@ -37,6 +37,11 @@ Setiap topik punya dua berkas berdampingan:
 | **Red-Black Tree** | [📄 catatan](data-structures/non-linear/trees/red-black-tree/red-black-tree.md) | [💻 kode](data-structures/non-linear/trees/red-black-tree/red-black-tree.c) | O(log n) | rotasi + warna |
 | **2-3 Tree** (B-Tree orde 3) | [📄 catatan](data-structures/non-linear/trees/b-tree-2-3/b-tree-2-3.md) | [💻 kode](data-structures/non-linear/trees/b-tree-2-3/b-tree-2-3.c) | O(log n) | split / merge |
 
+#### Non-Linear — Heap
+| Topik | Catatan | Kode | Lihat max | Insert/Pop |
+| ----- | ------- | ---- | --------- | ---------- |
+| **Heap** (Max-Heap, array) | [📄 catatan](data-structures/non-linear/heap/heap.md) | [💻 kode](data-structures/non-linear/heap/heap.c) | O(1) | O(log n) |
+
 ---
 
 ## 📂 Struktur Folder
@@ -51,11 +56,12 @@ DSA-Notes/
     ├── linear/
     │   └── linked-list/      linked-list.{c,md}
     └── non-linear/
-        └── trees/
-            ├── binary-search-tree/  binary-search-tree.{c,md}
-            ├── avl-tree/            avl-tree.{c,md}
-            ├── red-black-tree/      red-black-tree.{c,md}
-            └── b-tree-2-3/          b-tree-2-3.{c,md}
+        ├── trees/
+        │   ├── binary-search-tree/  binary-search-tree.{c,md}
+        │   ├── avl-tree/            avl-tree.{c,md}
+        │   ├── red-black-tree/      red-black-tree.{c,md}
+        │   └── b-tree-2-3/          b-tree-2-3.{c,md}
+        └── heap/                    heap.{c,md}
 ```
 
 ---
@@ -73,11 +79,11 @@ gcc bubble-sort.c -o bubble-sort
 > 💡 Beberapa berkas memakai fitur C99 (mis. VLA pada Merge Sort). Tambahkan
 > `-std=c11` bila perlu: `gcc -std=c11 merge-sort.c -o merge-sort`.
 
-Di **Windows (Command Prompt)** hasilnya `.exe`:
+Di **Windows (PowerShell)** hasilnya `.exe`:
 
 ```powershell
 gcc bubble-sort.c -o bubble-sort.exe
-bubble-sort.exe
+./bubble-sort.exe
 ```
 
 ---
@@ -97,6 +103,8 @@ bubble-sort.exe
    — BST + penyeimbang lewat rotasi.
 6. **[2-3 Tree](data-structures/non-linear/trees/b-tree-2-3/b-tree-2-3.md)** — dasar
    B-Tree, penyeimbang lewat split/merge (fondasi indeks database).
+7. **[Heap](data-structures/non-linear/heap/heap.md)** — pohon yang disimpan dalam
+   array; fondasi *priority queue* dan *Heap Sort*.
 
 ---
 
