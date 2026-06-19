@@ -20,7 +20,7 @@ Node *rightRotation(Node *y);
 Node *pop(Node *node, int num);
 Node *findMin(Node *node);
 void preOrder(Node *node);
-void ineOrder(Node *node);
+void inOrder(Node *node);
 void postOrder(Node *node);
 
 
