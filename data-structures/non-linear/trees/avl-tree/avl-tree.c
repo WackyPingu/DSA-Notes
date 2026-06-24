@@ -7,7 +7,6 @@ typedef struct Data {
     struct Data *left, *right;
 }Node;
 
-
 int max(int a, int b);
 int getHeight(Node *node);
 void updateHeight(Node *node);
@@ -19,10 +18,11 @@ Node *leftRotation(Node *x);
 Node *rightRotation(Node *y);
 Node *pop(Node *node, int num);
 Node *findMin(Node *node);
+Node *search(Node *node, int num);
+int countNode(Node *node);
 void preOrder(Node *node);
 void inOrder(Node *node);
 void postOrder(Node *node);
-
 
 int max(int a, int b) {return (a > b) ? a : b;}
 
@@ -38,6 +38,17 @@ int balanceFactor(Node *node){
     return getHeight(node->left) - getHeight(node->right);
 }
 
+Node *search(Node *node, int num){
+    if(!node || node->num == num) return node;
+    if(num < node->num) return search(node->left, num);
+    return search(node->right, num);
+}
+
+int countNode(Node *node){
+    if(!node) return 0;
+    return 1 + countNode(node->left) + countNode(node->right);
+}
+
 Node *createNode(int num){
     Node *newnode = (Node *)malloc(sizeof(Node));
     newnode->num = num;
@@ -48,7 +59,6 @@ Node *createNode(int num){
 
 Node *insert(Node *node, int num){
     if(!node) return createNode(num);
-    
     if(num < node->num) node->left = insert(node->left, num);
     else if(num > node->num) node->right = insert(node->right, num);
     else return node;
@@ -59,13 +69,11 @@ Node *rebalance(Node *node){
     updateHeight(node);
     int bf = balanceFactor(node);
 
-    // LL atau LR
-    if(bf > 1){
+    if(bf > 1){ // LL atau LR
         if(balanceFactor(node->left) < 0) node->left = leftRotation(node->left);
         return rightRotation(node);
     }
-    // RR atau RL
-    if(bf < -1){
+    if(bf < -1){ // RR atau RL
         if(balanceFactor(node->right) > 0) node->right = rightRotation(node->right);
         return leftRotation(node);
     }
@@ -153,17 +161,47 @@ void postOrder(Node *node){ // postorder (sesudah)
 
 int main(){
     int N;
-    scanf("%d",&N);
     Node *root = NULL;
+
+    printf("=== AVL Tree ===\n");
+    printf("Enter the number of commands: ");
+    scanf("%d",&N);    
+    printf("Available commands:\n");
+    printf("  ADD <num>   - add a number to the tree\n");
+    printf("  DEL <num>   - delete a number from the tree\n");
+    printf("  FIND <num>  - check if a number exists\n");
+    printf("  SHOW-ALL    - show all numbers (in-order)\n");
+    printf("---------------------------------------------\n");
     for(int i=0; i<N; i++){
-        char op[100];
-        int num;
-        scanf("%s %d",op,&num);
-        if(strcmp(op, "ADD")==0) root = insert(root, num);
-        if(strcmp(op, "POP")==0) root = pop(root, num);
+        char op[10]; int num;
+        scanf("%s", op);
+        if(strcmp(op, "ADD") == 0){
+            scanf("%d",&num);
+            if(search(root, num)) {
+                printf("Case %d:\nNumber already exists\n",i+1);
+                continue;
+            }
+            printf("Case %d:\nSuccessfully Added\n",i+1);
+            root = insert(root, num);
+        }
+        if(strcmp(op, "DEL") == 0){
+            scanf("%d",&num);
+            if(!search(root, num)) {
+                printf("Case %d:\nNumber not found\n",i+1);
+                continue;
+            }
+            printf("Case %d:\nSuccessfully Deleted\n",i+1);
+            root = pop(root, num);
+        }
+        if(strcmp(op, "FIND") == 0){
+            scanf("%d",&num);
+            if(search(root, num)) printf("Case %d:\nFound\n",i+1);
+            else printf("Case %d:\nNot Found\n",i+1);
+        }
+        if(strcmp(op, "SHOW-ALL") == 0){
+            printf("Case %d:\nTotal Numbers (%d):\n",i+1, countNode(root));
+            inOrder(root);
+        }
     }
-    printf("In-order: ");
-    inOrder(root);
-    printf("\nRoot: %d",root->num);
-    printf("\nHeight: %d",root->height);
+    return 0;
 }
